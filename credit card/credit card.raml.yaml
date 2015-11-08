@@ -8,6 +8,28 @@ Customers
 		/accounts
 			/{acount-id}
 				/credit card charges
+				post:
+					description: |
+						create for a charge
+					body:
+						application/form:
+						example:
+						{
+							"amount": 200
+							"dealType": "consume"
+							"URI": "shop owners/1/consume bills/1"
+						}
+					responses:
+						302:
+							description: |
+								Successfully create a charge for a deal
+							body:
+								application/form:
+								example:
+								{
+									"status": "created, but waiting to be paid"
+									"URI": "Bank/accounts/1/charges/1/payment"
+								}
 				get:
 					description: |
 						Retrieve charges list
