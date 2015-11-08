@@ -1,0 +1,342 @@
+#%RAML 1.0
+title:	Credit Card Rest API
+baseUri:	
+version:	v1
+
+Customers
+	/{cid}
+		/accounts
+			/{acount-id}
+				/credit card charges
+				get:
+					description: |
+						Retrieve charges list
+					responses:
+					200:
+						body:
+						application/json:
+						example:
+						{[
+							{
+								"number": "E32899"
+								"URI": "Customers/1/accounts/1/credit card charges/1"
+							}
+							{
+								"number": "E32897"
+								"URI": "Customers/1/accounts/1/credit card charges/2"
+							}
+						]}
+					/{charge-id}
+					get:
+						description: |
+							Retrieve charge detail
+						responses:
+						200:
+							body:
+							application/json:
+							example:
+							{
+								"number": "E32899"
+								"date": "2015-10-21 10:20:00"
+								"type": "consume"
+							}
+						/policy
+						/payablebs
+							/{payableb-id}
+							get:
+								description: |
+									Retrieve payable detail
+								responses:
+									200:
+										body:
+										application/json:
+										example:
+										{
+											"number": "E328eoe9"
+											"deadline": "2015-11-21 10:20:00"
+											"amount": 1500
+										}
+						/Cash Deal
+						get:
+							description: |
+								Retrieve corresponding deal detail
+							responses:
+								200:
+									body:
+									application/json:
+									example:
+									{
+										"number": "E328eoe9"
+										"date": "2015-11-21 10:20:00"
+										"amount": 1500
+									}
+						/Non Cash Deal
+							/consume bill
+							get:
+								description: |
+									Retrieve corresponding deal detail
+								responses:
+								200:
+									body:
+									application/json:
+									example:
+									{
+										"billNumber": "B3572826"
+										"date": "2015-11-21 10:20:00"
+										"amount": 1500
+									}
+				/collections
+				get:
+					description: |
+						Retrieve collections list
+					responses:
+					200:
+						body:
+						application/json:
+						example:
+						{[
+							{
+								"number": "B3572826"
+								"date": "2015-11-21 10:20:00"
+								"amount": 1500
+							}
+							{
+								"number": "B3572826"
+								"date": "2015-11-21 10:20:00"
+								"amount": 1500
+							}
+						]}
+				/Repayments
+					/{Repayment-id}
+						/payable bill
+						post:
+							description: |
+								pay for a bill
+							responses:
+								201:
+									description: |
+										Successfully pay for a bill
+									body:
+										application/form:
+										example:
+										{
+											"status": "Successfully paid"
+											"URI": "Customers/1/accounts/1/Repayments/1/payable bill"
+										}
+						get:
+							description: |
+							Retrieve a bill information
+							responses:
+							200:
+								body:
+								application/json:
+								example:
+								{
+									"amount": 10000
+									"items": [
+											"URI": "Customers/1/accounts/1/Repayments/1/payable bill/payables/1",
+											"URI": "Customers/1/accounts/1/Repayments/1/payable bill/payables/2",
+											"URI": "Customers/1/accounts/1/Repayments/1/payable bill/payables/3"
+									]
+								}
+								/payables
+								get:
+									description: |
+									Retrieve a payable information
+									responses:
+									200:
+										body:
+										application/json:
+										example:
+										[{
+											"amount": 1000
+											"deadline": "2015-10-12"
+										}
+										{
+											"amount": 1000
+											"deadline": "2015-10-12"
+										}
+										]
+
+
+/Bank
+	/accounts
+		/{acount-id}
+			/receiable bills
+				/{bill id}
+					/receiables
+			/credit card charges
+			get:
+				description: |
+					Retrieve charges list
+				responses:
+				200:
+					body:
+					application/json:
+					example:
+					{[
+						{
+							"number": "E32899"
+							"URI": "Bank/accounts/1/credit card charges/1"
+						}
+						{
+							"number": "E32897"
+							"URI": "Bank/accounts/1/credit card charges/2"
+						}
+					]}
+				/{charge id}
+					get:
+						description: |
+							Retrieve corresponding charge detail
+						responses:
+						200:
+							body:
+							application/json:
+							example:
+							{
+								"number": "B3572826"
+								"date": "2015-11-21 10:20:00"
+								"amount": 1500
+							}
+					/payment
+					post:
+						description: |
+							pay for a charge
+						responses:
+							201:
+								description: |
+									Successfully pay for a charge
+								body:
+									application/form:
+									example:
+									{
+										"status": "Successfully pay the charge"
+										"URI": "Bank/accounts/1/credit card charges/1"
+									}
+					/Cash Deal
+					get:
+						description: |
+							Retrieve cash deal detail
+						responses:
+						200:
+							body:
+							application/json:
+							example:
+							{
+								"number": "C3572826"
+								"date": "2015-11-21 10:20:00"
+								"amount": 1500
+							}
+					/Non Cash Deal
+					get:
+						description: |
+							Retrieve Non Cash Deal detail
+						responses:
+						200:
+							body:
+							application/json:
+							example:
+							{
+								"number": "NC3572826"
+								"date": "2015-11-21 10:20:00"
+								"amount": 1500
+								"consumeBill":"Bank/accounts/1/credit card charges/1/consume bill"
+							}
+						/consume bill
+						get:
+						description: |
+							Retrieve consume bill detail
+						responses:
+						200:
+							body:
+							application/json:
+							example:
+							{
+								"number": "B3572826"
+								"date": "2015-11-21 10:20:00"
+								"amount": 1500
+							}
+					/policy
+					get:
+						description: |
+							Retrieve Policy detail
+						responses:
+						200:
+							body:
+							application/json:
+							example:
+							{
+								"number": "P3572826"
+								"date": "2015-11-21 10:20:00"
+								"description": "payback in 6 months"
+								"interestRate": "0.005"
+								"formula": ""
+							}
+			/collections
+				get:
+				description: |
+					Retrieve charges list
+				responses:
+				200:
+					body:
+					application/json:
+					example:
+					{[
+						{
+							"number": "C32899"
+							"date":"2015-10-12"
+							"amount": 100
+						}
+						{
+							"number": "C32897"
+							"date":"2015-10-13"
+							"amount": 600
+						}
+					]}
+				/{collection-id}
+
+/shop owners
+	/{oid}
+		/collections
+		get:
+			description: |
+				Retrieve collection list
+			responses:
+			200:
+				body:
+				application/json:
+				example:
+				{[
+					{
+						"number": "C32899"
+						"date":"2015-10-12"
+						"amount": 100
+						"URI": "shop owners/1/consume bills/1"
+						"status": "paid"
+					}
+					{
+						"number": "C32897"
+						"date":"2015-10-13"
+						"amount": 600
+						"URI": "shop owners/1/consume bills/2"
+						"status": "paid"
+					}
+				]}
+		/Consume bills
+			/{b-id}
+			get:
+				description: |
+					Retrieve Bill Detail
+				responses:
+				200:
+					body:
+					application/json:
+					example:
+					{
+						"number": "C32899"
+						"date":"2015-10-12"
+						"amount": 100
+					}
+
+
+
