@@ -1,0 +1,266 @@
+#%RAML 1.0
+title:	Expense Rest API
+baseUri:	
+version:	v1
+
+/employees
+	/{id}
+		/expense claims
+		post:
+			description: |
+				Create a new expense claim which contains many expenses
+			body:
+				application/form:
+				example:
+					{
+						"name": "travel to beijing"
+					}
+			responses:
+				201:
+					description: |
+						Successfully created a new expense claim
+					body:
+						application/form:
+						example:
+							{
+								"name": "travel to beijing"
+								"URI": "employees/1/expense claims/1"
+							}
+						
+		
+			/{ec-id}
+				get:
+					description: |
+						Retrieve expense claim 
+					responses:
+						200:
+							description: |
+							Successfully Retrieve expense claim
+							example:
+							{
+								"name": "travel to beijing"
+								"number":"e-1234"
+								"identity":"26372383298778787"
+								"createTime":"2015-09-21 17:00:00"
+							}
+				
+				expenses
+					post:
+						description: |
+							Create a new expense
+						body:
+							application/form: !!null
+							example:
+							{
+								"name": "taxi from railway station to beijing office"
+								"fee": "120"
+								"time": "2015-10-10 10:00:00"
+							}
+						responses:
+							201:
+								description: |
+									Successfully created a new expense
+								example:
+								{
+									"name": "taxi from railway station to beijing office"
+									"URI": "employees/1/expense claims/1/expenses/1"
+								}	
+					/{e-id}
+						get:
+							description: |
+								Retrieve single expense information
+							responses:
+								200:
+									description: |
+										Successfully retrieved single expense
+									example:
+									{
+										"name": "taxi from railway station to beijing office"
+										"fee": "120"
+										"time": "2015-10-10 10:00:00"
+									}	
+						receipts
+							post:
+								description: |
+									Create a new receipt which could be invoices or inside company receipts
+								body:
+									application/form: !!null
+									{
+										"ticketNumber": "E32o44475"
+										"img": "13d9835980eeeo"
+									}
+								responses:
+									201:
+										description: |
+											Successfully create a receipt
+										example:
+										{
+											"ticketNumber": "E32o44475"
+											"URI": "employees/1/expense claims/1/expenses/1/receipts/1"
+										}	
+
+							/{rid}
+								get:
+									description: |
+										Retrieve receipt information 
+									responses:
+										200:
+											description: |
+												Successfully retrieved resource(s)
+											example:	
+											{
+												"ticketNumber": "E32o44475"
+												"img": "13d9835980eeeo"
+											}
+				expense audit forms
+					get:
+						description: |
+							Retrieve expense audit result form
+						responses:
+							200:
+								description: |
+									Successfully retrieved expense audit result
+								example:	
+								{[
+									{
+										"auditNumber": "E32o44475"
+										"URI": "employees/1/expense claims/expense audit forms/1"
+									}
+									{
+										"auditNumber": "E32o44476"
+										"URI": "employees/1/expense claims/expense audit forms/2"
+									}
+								]}	
+					
+					/{audit-id}
+						get:
+							description: |
+								Retrieve audit result
+							responses:
+								200:
+									description: |
+										Successfully retrieved audit result
+									example:	
+									
+										{
+											"auditNumber": "E32o44475"
+											"status": "approved"
+											"URI": "employees/1/expense claims/1/expenses/1"
+										}
+
+/accountants
+	/{a-id}
+		/expense audit forms
+			post:
+				description: |
+					Create a new expense audit form
+				body:
+					application/form: !!null
+					{
+						"URI": "employees/1/expense claims/1"
+					}	
+				responses:
+					201:
+						description: |
+							Successfully created a new audit form
+						example:				
+						{
+							"URI": "accountants/1/expense audit forms/1"
+						}
+			/{audit-id}
+				get:
+					description: |
+						Retrieve resource(s)
+					responses:
+						200:
+							description: |
+								Successfully retrieved resource(s)
+							example:				
+							{
+								"number":"E387830"
+							}
+				
+				/audit expenses
+					post:
+						description: |
+							Create a new audit for expense
+						body:
+							application/form: !!null
+							example:				
+							{
+								"URI": "employees/1/expense claims/1/expenses/1"
+							}	
+						responses:
+							201:
+								description: |
+									Successfully created a new audit record
+								example:
+								{
+									"URI": "accountants/1/expense forms/1/audit expenses/1"
+								}
+					{eid}
+						get:
+							description: |
+								Retrieve audit expense result
+							responses:
+								200:
+									description: |
+										Successfully retrieved resource(s)
+									example:				
+									{
+										"number": "e398778823"
+										"status": "approved"
+										"operator": "Li"
+										"URI": "employees/1/expense claims/1/expenses/1"
+									}			
+
+/managers
+	/{manager-id}
+		/expense audit forms
+			/{audit-id}
+				put:
+					description: |
+						Update an existing audit expense form
+					body:
+						application/form:
+						example:
+						{
+							"message": "total money calculated wrongly"
+						}
+					responses:
+						204:
+							description: |
+								Successfully updated the audit expense form
+							example:				
+							{
+								"number": "e398778823"
+								"status": "unapproved"
+								"operator": "Zhang"
+								"role": "manager"
+								"comment": "total money calculated wrongly"
+								"URI": "employees/1/expense claims/1/"
+							}	
+				/audit expenses
+					/{audit-expense-id}
+					put:
+					description: |
+						Update an existing single audit expense
+					body:
+						application/form:
+						example:
+						{
+							"message": "too expensive"
+						}
+					responses:
+						204:
+							description: |
+								Successfully updated the audit expense form
+							example:				
+							{
+								"number": "e398778823"
+								"status": "unapproved"
+								"operator": "Li"
+								"role": "manager"
+								"comment": "too expensive"
+								"URI": "employees/1/expense claims/1/expenses/1"
+							}	

@@ -1,0 +1,329 @@
+#%RAML 1.0
+title:	Fixed Assert Management Rest API
+baseUri:	
+version:	v1
+
+/compaies
+	/{c-id}
+		/policies
+			/{pid}
+			get:
+				description: |
+					Retrieve policy detail
+				responses:
+					200:
+						description: |
+							Successfully retrieve policy detail
+						body:
+						application/json:
+						example:
+						{
+							"message": "straight line depreciation depends on fixed asset lifetime"
+							"formula":""
+							"type": "straight line depreciation"
+							"category": "depreciation"
+						}
+			
+
+		/fixed asserts
+			post:
+				description: |
+					Create a new fixed assert
+				body:
+					application/form: !!null
+					example:
+					{
+						"unique_number": "FA-27483739"
+						"orginal worth": "150000"
+						"lifetime": "10year"
+					}
+				responses:
+					302:
+						description: |
+							Successfully created a new fixed assert
+						headers:
+							Location:
+								description: |
+									Location of the next waiting operator
+								type: string
+								redirect:"compaies/1/fixed asserts/1/net worth request"
+								required: false
+						body:
+						application/form:
+							example:
+							{
+								"unique_number": "FA-27483739"
+								"URI": "compaies/1/fixed asserts/1"
+								"netURI":"compaies/1/fixed asserts/1/net worth request"
+							}			
+			/{fa-id}
+				get:
+					description: |
+						Retrieve a fixed assert
+					responses:
+						200:
+							description: |
+								Successfully retrieved fixed assert
+							body:
+								application/form:
+								example:
+								{
+									"unique_number": "FA-27483739"
+									"orginal worth": "150000"
+									"lifetime": "10year"
+								}		
+				/repairments
+					post:
+						description: |
+							Create a new repairment
+						body:
+							application/form: !!null
+							example:
+							{
+								"unique_number": "RE-27483739"
+								"expense": "15000"
+							}	
+						responses:
+							201:
+								description: |
+									Successfully created a new repairment
+								body:
+									application/form:
+									example:
+									{
+										"unique_number": "RE-27483739"
+										"URI": "compaies/1/fixed asserts/1/repairments/1"
+									}		
+					
+					/{rid}
+						get:
+							description: |
+								Retrieve repairment information
+							responses:
+								200:
+									description: |
+										Successfully repairment information
+									body:
+										application/json:
+										example:
+										{
+											"unique_number": "RE-27483739"
+											"expense": "15000"
+										}
+						
+						/net accounting request
+						post:
+							description: |
+								Create a new net accounting request to generate a new net worth
+							body:
+								application/json: !!null
+							responses:
+								302:
+									description: |
+										Successfully created a new net accouting request, but still need to check new net worth
+									body:
+										application/json:
+										example:
+										{
+											"unique_number": "RE-27483739"
+											"URI": "compaies/1/fixed asserts/1/net worths/1"
+										}	
+						/receipts
+							post:
+								description: |
+									Create a new receipt which could be invoices or inside company receipts
+								body:
+									application/form: !!null
+									example:
+									{
+										"ticketNumber": "E32o44475"
+										"img": "13d9835980eeeo"
+									}
+								responses:
+									201:
+										description: |
+											Successfully create a receipt
+										example:
+										{
+											"ticketNumber": "E32o44475"
+											"URI": "compaies/1/fixed asserts/1/repairments/1/invoices/1"
+										}	
+
+
+							/{r-id}	
+							get:
+								description: |
+									Retrieve receipt information 
+								responses:
+									200:
+										description: |
+											Successfully retrieved a receipt
+										example:	
+										{
+											"ticketNumber": "E32o44475"
+											"img": "13d9835980eeeo"
+										}
+				/depreciations
+					post:
+						description: |
+							Create a new depreciation
+						body:
+							application/form: !!null
+							example:
+									{
+										"number": "E32o44475"
+										"policy": "compaies/1/policies/1"
+									}
+						responses:
+							302:
+								description: |
+									Successfully created a new net accouting request, but still need to check new net worth
+								headers:
+									Location:
+										description: |
+											Location of the newly created resource
+										type: string
+										redirect:"compaies/1/fixed asserts/1/net worths/1/net accouting request"
+										required: false
+								body:
+									application/json:
+									example:
+									{
+										"unique_number": "RE-27483739"
+										"URI": "compaies/1/fixed asserts/1/net worths/1"
+									}	 
+					
+					/{d-id}
+						get:
+							description: |
+								Retrieve depreciation information
+							responses:
+								200:
+									description: |
+										Successfully retrieved depreciation information
+									body:
+									application/json:
+									example:	
+										{
+											"number": "E32o44475"
+											"policy": "compaies/1/policies/1"
+											"URI":"compaies/1/fixed asserts/1/net worths/1/net accouting request"
+										}		
+							
+						/net accounting request
+						post:
+							description: |
+								Create a new net accounting request to generate a new net worth
+							body:
+								application/json: !!null
+							responses:
+								302:
+									description: |
+										Successfully created a new net accouting request, but still need to check new net worth
+									body:
+										application/json:
+										example:
+										{
+											"unique_number": "RE-27483739"
+											"URI": "compaies/1/fixed asserts/1/net worths/2"
+										}		
+				/net accounting request
+				post:
+					description: |
+						Create a new net accounting request to generate a new net worth
+					body:
+						application/json: !!null
+					responses:
+						302:
+							description: |
+								Successfully created a new net accouting request, but still need to check new net worth
+							body:
+								application/json:
+								example:
+								{
+									"unique_number": "RE-27483739"
+									"URI": "compaies/1/fixed asserts/1/net worths/1"
+								}	
+				/receipts
+					/{rid}
+				/net worths
+				post:
+					description: |
+						Create a new net worth
+					body:
+						application/form: !!null
+						example:
+							{
+								"networth": "120000"
+								"liquidationTime": "2015-10-12"
+							}
+					responses:
+						201:
+							description: |
+								Successfully created a new net worth
+							body:
+							application/json: !!null
+							example:
+							{
+								"networth": "120000"
+								"URI": "compaies/1/fixed asserts/1/net worths/1"
+							}		
+				
+					/{n-id}
+					get:
+						description: |
+							Retrieve net worth 
+						responses:
+							200:
+								description: |
+									Successfully retrieved net worth
+								body:
+								application/json: !!null
+								example:
+								{
+									"networth": "120000"
+									"liquidationTime": "2015-10-12"
+									"URI": "compaies/1/fixed asserts/1/net worths/1/net worth changement"
+								}			
+					
+						/net worth changement
+						post:
+							description: |
+								Create a new resource
+							body:
+								application/form: !!null
+								example:
+								{
+									"lastURI":""compaies/1/fixed asserts/1/net worths/2"
+									"lastButOneURI": "compaies/1/fixed asserts/1/net worths/1"
+								}
+							responses:
+								201:
+									description: |
+										Successfully created a new resource
+									body:
+									application/json: !!null
+									example:
+									{
+										"URI": "compaies/1/fixed asserts/1/net worth changements/1"
+									}		
+				/net worth changements
+					/{c-id}
+					get:
+						description: |
+							Retrieve net worth changement
+						responses:
+							200:
+								description: |
+										Successfully created a new resource
+								body:
+								application/json: !!null
+								example:
+								{
+									"worthchange": "-100"
+									"refURI1":""compaies/1/fixed asserts/1/net worths/2"
+									"refURI2":""compaies/1/fixed asserts/1/net worths/1"
+								}	
+					
+
+

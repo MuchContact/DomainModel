@@ -1,0 +1,5 @@
+#%RAML 1.0
+title:	Credit Card Rest API
+baseUri:	
+version:	v1
+
