@@ -6,6 +6,29 @@ version:	v1
 /compaies
 	/{c-id}
 		/policies
+		post:
+			description: |
+				Create a new policy
+			body:
+				application/form: !!null
+				example:
+						{
+							"title": "straight line depreciation depends on fixed asset lifetime"
+							"formula":""
+							"type": "straight line depreciation"
+							"category": "depreciation"
+						}
+			responses:
+				201:
+					description: |
+						Successfully created a new policy
+					example:
+						{
+							"id": "1"
+							"message": "create policy Successfully"
+							"URI": "compaies/1/policies/1"
+						}
+		
 			/{pid}
 			get:
 				description: |
@@ -18,7 +41,7 @@ version:	v1
 						application/json:
 						example:
 						{
-							"message": "straight line depreciation depends on fixed asset lifetime"
+							"title": "straight line depreciation depends on fixed asset lifetime"
 							"formula":""
 							"type": "straight line depreciation"
 							"category": "depreciation"
@@ -46,7 +69,7 @@ version:	v1
 								description: |
 									Location of the next waiting operator
 								type: string
-								redirect:"compaies/1/fixed asserts/1/net worth request"
+								redirect:"compaies/1/fixed asserts/1/net accounting request"
 								required: false
 						body:
 						application/form:
@@ -54,7 +77,7 @@ version:	v1
 							{
 								"unique_number": "FA-27483739"
 								"URI": "compaies/1/fixed asserts/1"
-								"netURI":"compaies/1/fixed asserts/1/net worth request"
+								"netURI":"compaies/1/fixed asserts/1/net accounting request"
 							}			
 			/{fa-id}
 				get:
