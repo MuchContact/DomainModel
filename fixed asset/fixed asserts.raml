@@ -57,8 +57,9 @@ version:	v1
 					example:
 					{
 						"unique_number": "FA-27483739"
-						"orginal worth": "150000"
+						"original worth": "150000"
 						"lifetime": "10year"
+						"startDate": "2015-10-1"
 					}
 				responses:
 					302:
@@ -77,7 +78,7 @@ version:	v1
 							{
 								"unique_number": "FA-27483739"
 								"URI": "compaies/1/fixed assets/1"
-								"netURI":"compaies/1/fixed assets/1/net accounting request"
+								"forwardURI":"compaies/1/fixed assets/1/net accounting request"
 							}			
 			/{fa-id}
 				get:
@@ -194,7 +195,7 @@ version:	v1
 							application/form: !!null
 							example:
 									{
-										"number": "E32o44475"
+										"accountDay": "2015-10-1"
 										"policy": "compaies/1/policies/1"
 									}
 						responses:
@@ -206,14 +207,15 @@ version:	v1
 										description: |
 											Location of the newly created resource
 										type: string
-										redirect:"compaies/1/fixed assets/1/net worths/1/net accouting request"
+										redirect:"compaies/1/fixed assets/1/deprecations/1/net accouting request"
 										required: false
 								body:
 									application/json:
 									example:
 									{
-										"unique_number": "RE-27483739"
-										"URI": "compaies/1/fixed assets/1/net worths/1"
+										"id": "1"
+										"URI": "compaies/1/fixed assets/1/deprecations/1"
+										"forwardURI": "compaies/1/fixed assets/1/deprecations/1/net accouting request"
 									}	 
 					
 					/{d-id}
@@ -238,9 +240,16 @@ version:	v1
 							description: |
 								Create a new net accounting request to generate a new net worth
 							body:
-								application/json: !!null
+								application/form: !!null
+								example:
+								{
+									"amount": "14000"
+									"policy": ""
+									"accountDay": "2015-10-1"
+									"accountant": "Zhang ling"
+								}
 							responses:
-								302:
+								201:
 									description: |
 										Successfully created a new net accouting request, but still need to check new net worth
 									body:
