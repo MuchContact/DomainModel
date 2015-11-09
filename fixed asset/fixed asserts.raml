@@ -48,7 +48,7 @@ version:	v1
 						}
 			
 
-		/fixed asserts
+		/fixed assets
 			post:
 				description: |
 					Create a new fixed assert
@@ -69,15 +69,15 @@ version:	v1
 								description: |
 									Location of the next waiting operator
 								type: string
-								redirect:"compaies/1/fixed asserts/1/net accounting request"
+								redirect:"compaies/1/fixed assets/1/net accounting request"
 								required: false
 						body:
 						application/form:
 							example:
 							{
 								"unique_number": "FA-27483739"
-								"URI": "compaies/1/fixed asserts/1"
-								"netURI":"compaies/1/fixed asserts/1/net accounting request"
+								"URI": "compaies/1/fixed assets/1"
+								"netURI":"compaies/1/fixed assets/1/net accounting request"
 							}			
 			/{fa-id}
 				get:
@@ -115,7 +115,7 @@ version:	v1
 									example:
 									{
 										"unique_number": "RE-27483739"
-										"URI": "compaies/1/fixed asserts/1/repairments/1"
+										"URI": "compaies/1/fixed assets/1/repairments/1"
 									}		
 					
 					/{rid}
@@ -149,7 +149,7 @@ version:	v1
 										example:
 										{
 											"unique_number": "RE-27483739"
-											"URI": "compaies/1/fixed asserts/1/net worths/1"
+											"URI": "compaies/1/fixed assets/1/net worths/1"
 										}	
 						/receipts
 							post:
@@ -169,7 +169,7 @@ version:	v1
 										example:
 										{
 											"ticketNumber": "E32o44475"
-											"URI": "compaies/1/fixed asserts/1/repairments/1/invoices/1"
+											"URI": "compaies/1/fixed assets/1/repairments/1/invoices/1"
 										}	
 
 
@@ -206,14 +206,14 @@ version:	v1
 										description: |
 											Location of the newly created resource
 										type: string
-										redirect:"compaies/1/fixed asserts/1/net worths/1/net accouting request"
+										redirect:"compaies/1/fixed assets/1/net worths/1/net accouting request"
 										required: false
 								body:
 									application/json:
 									example:
 									{
 										"unique_number": "RE-27483739"
-										"URI": "compaies/1/fixed asserts/1/net worths/1"
+										"URI": "compaies/1/fixed assets/1/net worths/1"
 									}	 
 					
 					/{d-id}
@@ -230,7 +230,7 @@ version:	v1
 										{
 											"number": "E32o44475"
 											"policy": "compaies/1/policies/1"
-											"URI":"compaies/1/fixed asserts/1/net worths/1/net accouting request"
+											"URI":"compaies/1/fixed assets/1/net worths/1/net accouting request"
 										}		
 							
 						/net accounting request
@@ -248,7 +248,7 @@ version:	v1
 										example:
 										{
 											"unique_number": "RE-27483739"
-											"URI": "compaies/1/fixed asserts/1/net worths/2"
+											"URI": "compaies/1/fixed assets/1/net worths/2"
 										}		
 				/net accounting request
 				post:
@@ -265,7 +265,7 @@ version:	v1
 								example:
 								{
 									"unique_number": "RE-27483739"
-									"URI": "compaies/1/fixed asserts/1/net worths/1"
+									"URI": "compaies/1/fixed assets/1/net worths/1"
 								}	
 				/receipts
 					/{rid}
@@ -289,7 +289,7 @@ version:	v1
 							example:
 							{
 								"networth": "120000"
-								"URI": "compaies/1/fixed asserts/1/net worths/1"
+								"URI": "compaies/1/fixed assets/1/net worths/1"
 							}		
 				
 					/{n-id}
@@ -306,7 +306,7 @@ version:	v1
 								{
 									"networth": "120000"
 									"liquidationTime": "2015-10-12"
-									"URI": "compaies/1/fixed asserts/1/net worths/1/net worth changement"
+									"URI": "compaies/1/fixed assets/1/net worths/1/net worth changement"
 								}			
 					
 						/net worth changement
@@ -317,8 +317,8 @@ version:	v1
 								application/form: !!null
 								example:
 								{
-									"lastURI":""compaies/1/fixed asserts/1/net worths/2"
-									"lastButOneURI": "compaies/1/fixed asserts/1/net worths/1"
+									"lastURI":""compaies/1/fixed assets/1/net worths/2"
+									"lastButOneURI": "compaies/1/fixed assets/1/net worths/1"
 								}
 							responses:
 								201:
@@ -328,7 +328,7 @@ version:	v1
 									application/json: !!null
 									example:
 									{
-										"URI": "compaies/1/fixed asserts/1/net worth changements/1"
+										"URI": "compaies/1/fixed assets/1/net worth changements/1"
 									}		
 				/net worth changements
 					/{c-id}
@@ -344,8 +344,8 @@ version:	v1
 								example:
 								{
 									"worthchange": "-100"
-									"refURI1":""compaies/1/fixed asserts/1/net worths/2"
-									"refURI2":""compaies/1/fixed asserts/1/net worths/1"
+									"refURI1":""compaies/1/fixed assets/1/net worths/2"
+									"refURI2":""compaies/1/fixed assets/1/net worths/1"
 								}	
 					
 
